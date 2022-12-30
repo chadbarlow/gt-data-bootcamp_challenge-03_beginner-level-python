@@ -15,21 +15,20 @@ with open(input_file) as csvfile:
         voter_ids.append(row[0])
         candidates.append(row[2])
 
+    # Find the total number of votes cast
     total_votes = len(set([row for row in voter_ids]))
+    # Find a complete list of candidates who received votes
     unique_candidates = list(set([row for row in candidates]))
-    total_votes_per_candidate = [candidates.count(name) for name in unique_candidates]
-    winnings_percentages = [
-        number / total_votes * 100 for number in total_votes_per_candidate
-    ]
-    winner = unique_candidates[
-        total_votes_per_candidate.index(max(total_votes_per_candidate))
-    ]
-    zipped = list(
-        zip(unique_candidates, winnings_percentages, total_votes_per_candidate)
-    )
+    # Find the total number of votes each candidate won
+    votes_per_candidate = [candidates.count(name) for name in unique_candidates]
+    # Find the percentage of votes each candidate won
+    winnings_percentages = [num / total_votes * 100 for num in votes_per_candidate]
+    # Find the winner of the election based on popular vote
+    winner = unique_candidates[votes_per_candidate.index(max(votes_per_candidate))]
+    zipped = list(zip(unique_candidates, winnings_percentages, votes_per_candidate))
     unzipped = []
     for tuple in zipped:
-        unzipped.append(f"{tuple[0]}: {round(tuple[1],2)}% ({tuple[2]})")
+        unzipped.append(f"{tuple[0]}: {round(tuple[1],3)}% ({tuple[2]})")
 
 report = (
     f"Election Results\n"
