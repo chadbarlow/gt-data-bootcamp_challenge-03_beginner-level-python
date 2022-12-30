@@ -14,7 +14,6 @@ with open(input_file) as csvfile:
     for row in csvreader:
         voter_ids.append(row[0])
         candidates.append(row[2])
-
     # Find the total number of votes cast
     total_votes = len(set([row for row in voter_ids]))
     # Find a complete list of candidates who received votes
