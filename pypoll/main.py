@@ -1,7 +1,7 @@
 import os
 import csv
 
-os.chdir(os.path.dirname(os.path.realpath(__file__)))
+# os.chdir(os.path.dirname(os.path.realpath(__file__)))
 
 input_file = os.path.join(".", "resources", "election_data.csv")
 output_file = os.path.join(".", "analysis", "report.txt")
