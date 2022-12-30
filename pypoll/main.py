@@ -1,11 +1,5 @@
-# In this challenge, you are tasked with helping a small, rural town modernize its vote counting process.
-
-# You will be given a set of poll data called [election_data.csv](PyPoll/Resources/election_data.csv). The dataset is composed of three columns: "Voter ID", "County", and "Candidate". Your task is to create a Python script that analyzes the votes and calculates each of the following:
-
 import os
 import csv
-
-os.chdir(os.path.dirname(os.path.realpath(__file__)))
 
 input_file = os.path.join(".", "resources", "election_data.csv")
 output_file = os.path.join(".", "analysis", "report.txt")
@@ -15,6 +9,7 @@ candidates = []
 
 with open(input_file) as csvfile:
     csvreader = csv.reader(csvfile, delimiter=",")
+    # Skip first iteration to omit headers
     next(csvreader)
     for row in csvreader:
         voter_ids.append(row[0])
@@ -22,20 +17,27 @@ with open(input_file) as csvfile:
 
     total_votes = len(set([row for row in voter_ids]))
     unique_candidates = list(set([row for row in candidates]))
-    totals = [candidates.count(name) for name in unique_candidates]
-    percentages = [number / total_votes * 100 for number in totals]
-    data = list(zip(unique_candidates, percentages, totals))
-    winner = unique_candidates[totals.index(max(totals))]
-    thing = []
-    for tuple in data:
-        thing.append(f"{tuple[0]}: {round(tuple[1],2)}% ({tuple[2]})")
+    total_votes_per_candidate = [candidates.count(name) for name in unique_candidates]
+    winnings_percentages = [
+        number / total_votes * 100 for number in total_votes_per_candidate
+    ]
+    winner = unique_candidates[
+        total_votes_per_candidate.index(max(total_votes_per_candidate))
+    ]
+    zipped = list(
+        zip(unique_candidates, winnings_percentages, total_votes_per_candidate)
+    )
+    unzipped = []
+    for tuple in zipped:
+        unzipped.append(f"{tuple[0]}: {round(tuple[1],2)}% ({tuple[2]})")
 
 report = (
     f"Election Results\n"
     f"-------------------------\n"
     f"Total Votes: {total_votes}\n"
     f"-------------------------\n"
-    f"{chr(10).join(thing)}\n"
+    # N.B. 'chr(10)' reduces to line break
+    f"{chr(10).join(unzipped)}\n"
     f"-------------------------\n"
     f"Winner: {winner}\n"
     f"-------------------------\n"
