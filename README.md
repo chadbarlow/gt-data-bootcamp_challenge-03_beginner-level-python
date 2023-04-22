@@ -1,4 +1,4 @@
-<h1 align="left">BEGINNER-LEVEL PYTHON<br><i>Topic: Corporate Financial Records</i> </h1> 
+<h1 align="left">BEGINNER-LEVEL PYTHON<br><i>Topic: Corporate Financial Records & Local Election Results</i> </h1> 
 
 This project aims to analyze financial records and election data using beginner-level Python expressions, statements, and functions. The goal is to utilize Python scripting skills to perform data analysis and generate results that can be printed in the terminal and exported to a text file.
 
